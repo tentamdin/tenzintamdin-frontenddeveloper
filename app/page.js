@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "@/components/Navbar";
-import Banner from "@/components/Banner";
-import MainSection from "@/components/MainSection";
+import Navbar from "../components/Navbar";
+import Banner from "../components/Banner";
+import MainSection from "../components/MainSection";
 
 const Home = () => {
   return (
-    <div className="bg-black h-full">
+    <div className=" h-screen">
       {/* Navbar  goes here */}
       <Navbar />
       {/* Banner section goes here */}

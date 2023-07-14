@@ -24,7 +24,7 @@ const RocketPopup = ({ rocket, onClose }) => {
             />
           </svg>
         </button>
-        <h2 className="text-2xl font-semibold mb-4">{rocket.rocket_name}</h2>
+        <h2 className="text-2xl font-semibold mb-4">{rocket.name}</h2>
         <div className="space-y-4">
           <p className="text-gray-600">Description: {rocket.description}</p>
           <p className="text-gray-600">Country: {rocket.country}</p>
@@ -39,7 +39,17 @@ const RocketPopup = ({ rocket, onClose }) => {
           <p className="text-gray-600">
             Success Rate: {rocket.success_rate_pct}%
           </p>
-          <p className="text-gray-600">Stage: {rocket.stage}</p>
+          <p className="text-gray-600">Stage: {rocket.stages}</p>
+          <p className="text-gray-700 inline-block">
+            Wikipedia:{" "}
+            <a
+              href={rocket.wikipedia}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {rocket.wikipedia}
+            </a>
+          </p>
         </div>
 
         {/* Additional rocket data can be displayed here */}

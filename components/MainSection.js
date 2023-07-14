@@ -1,36 +1,30 @@
 "use client";
 
 import React from "react";
-import { rockets } from "@/utils/rocket-data";
-import { useState } from "react";
-import RocketCard from "@/components/RocketCard";
+import { rockets } from "../utils/rocket-data";
+import { useState, useEffect } from "react";
+import RocketCard from "../components/RocketCard";
 import RocketPopup from "./RocketPopup";
-
-// const RocketPopup = ({ rocket, onClose }) => {
-//   return (
-//     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-//       <div className="bg-white rounded-md shadow-lg p-6 max-w-md">
-//         <h2 className="text-2xl font-semibold mb-4">{rocket.name}</h2>
-//         <p className="text-gray-600">
-//           Cost per Launch: ${rocket.cost_per_launch}
-//         </p>
-//         <p className="text-gray-600">Success Rate: {rocket.success_rate}%</p>
-//         {/* Additional rocket data can be displayed here */}
-//         <button
-//           className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-//           onClick={onClose}
-//         >
-//           Close
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
 
 const MainSection = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredRockets, setFilteredRockets] = useState(rockets);
+  const [filteredRockets, setFilteredRockets] = useState([]);
   const [selectedRocket, setSelectedRocket] = useState(null);
+
+  useEffect(() => {
+    const fetchRockets = async () => {
+      try {
+        const response = await fetch("/api/home");
+        const data = await response.json();
+        console.log("data", data.data);
+        setFilteredRockets(data.data);
+      } catch (error) {
+        console.error("Error fetching SpaceX rockets:", error);
+      }
+    };
+
+    fetchRockets();
+  }, []);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -63,11 +57,11 @@ const MainSection = () => {
     setSelectedRocket(null);
   };
   return (
-    <div>
+    <div className="h-full">
       <section className="mb-12 px-10 text-white">
         {/* Search form section goes here */}
         <div className="my-4">
-          <div className="mb-6 text-lg font-bold">Fliter By</div>
+          <div className="mb-6 text-md sm:text-lg font-bold">Filter By</div>
           <input
             type="text"
             placeholder="Rocket name, cost per Launch, success rate"
